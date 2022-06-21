@@ -1,5 +1,5 @@
-Hello World!
-This is my first attempt at exclusively using the terminal.
+Hello World!\
+This is my first attempt at exclusively using the terminal.\
 
 {\ _ /}\
 ( • . •)\
