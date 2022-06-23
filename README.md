@@ -1,5 +1,5 @@
 Hello World!\
-This is my first attempt at exclusively using the command-line.
+This is the repo for all the projects, notes, and various other experiments in the .Net tech stack.
 
 {\ _ /}\
 ( • . •)\
