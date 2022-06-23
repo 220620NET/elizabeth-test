@@ -42,6 +42,7 @@ int correct = 0;
 //flag for the while loop responible for game
 bool gameCompleted = false;
 
+//Game intro
 Console.WriteLine("Welcome to Hangman!");
 Console.WriteLine("The secret word has been selected and is " + wordGuess.Length + " letters.");
 Console.WriteLine("Press 'Enter' to begin!");
@@ -56,8 +57,10 @@ while(!gameCompleted){
     string userInput = Console.ReadLine();
     Console.WriteLine();
     
-    //The Start of Hangman
 
+
+
+    //The main logic of hangman
     
     //the user can type anything into the string
     //first checks whether the userInput is numeric or null
@@ -77,7 +80,14 @@ while(!gameCompleted){
                 {
                     Console.WriteLine("The letter '" + userInput + "' is correct!");
                     correctLetters.Add(userInput);
-                    correct++;
+                    for (int i = 0; i < wordGuess.Length; i++)
+                    {
+                        if (wordGuess[i].ToString() == userInput)
+                        {
+                            correct++;
+                        }
+                        
+                    }
                 }
                 else
                 {
@@ -137,4 +147,3 @@ while(!gameCompleted){
         Console.WriteLine();
     }
 }
-
