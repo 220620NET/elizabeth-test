@@ -1,52 +1,101 @@
-﻿/*
-Hangman is a game wheere a user must guess randomly picked word in 6 tries.
-The user guesses a letter, then we can tell if it exists in the word or not.
-If the letter exists in the word, then we fill in the letter.
-User can also guess the word
-*/
+﻿Console.WriteLine("Hi this is hangman!");
 
-string[] wordBank = {"apple", "banana", "pineapple",
-                     "pear", "avocado", "peanut",
-                     "giraffe", "tomato", "platypus",
-                     "sugar", "lion", "bear",
-                     "mango", "phone", "orange", "tiger"};
+string[] wordBank = {"forest", "tree", "flower",
+                     "sky", "grass", "mountain",
+                     "happy", "rotating", "red",
+                     "fast", "elastic", "smily",
+                     "unbelievable", "infinite"};
 
-Random rand = new Random();
+//generates an wordGuess from the wordBank array
+Random rnd = new Random();
+string wordGuess = wordBank[rnd.Next(wordBank.Count())];
 
-int wordBankNum = wordBank.Count();
-int randomNumber = rand.Next(wordBankNum);
+Console.WriteLine(wordGuess);
 
-string answer = wordBank[randomNumber];
-
-Console.WriteLine(answer);
-
-Console.WriteLine("Welcome to Hangman");
-Console.WriteLine("What would you like to do?");
-Console.WriteLine("[1] Guess a letter");
-Console.WriteLine("[2] Guess the word");
-string input = Console.ReadLine();
-if(input == "1")
+//checks to see if a string is numeric
+bool IsNumeric(String str)
 {
-    // then I'll have them guess letter
-    Console.WriteLine("Take a guess");
-    int charInput = Console.Read();
-    char userGuess = Convert.ToChar(charInput);
-
-    // string strInput = Console.ReadLine();
-    // char guess = strInput[0];
-
-    bool isCorrect = GuessLetter(userGuess);
-}
-else if(input == "2")
-{
-    //then i'll have them guess the word
+    if (str == "") {
+        return false;
+    }
+    try {
+        Double.Parse(str);
+        return true;
+    } catch (FormatException) {
+        return false;
+    }
 }
 
-//This is a method. This encapsulates a behavior that we want to reuse
-//This is the method signature, and it has 3 things; return type, method name, method parameters 
-bool GuessLetter(char userGuess)
+//an array that stores all incorrect words used during the game
+List<string> incorrectWords = new List<string>();
+
+//an array that stores of the incorrect letters used during the game
+List<string> incorrectLetters = new List<string>();
+
+//an array that stores of the correct letters used during the game
+List<string> correctLetters = new List<string>();
+
+//the number of tries before you lose the round
+int tries = 6;
+
+//flag for the while loop responible for game
+bool gameCompleted = false;
+while (!gameCompleted)
 {
-    Console.WriteLine(userGuess);
-    Console.WriteLine(answer.Contains(userGuess));
-    return answer.Contains(userGuess);
+    //the tries run out 
+    if (tries == 0) {
+        Console.WriteLine("You ran out of attemps!");
+        break;
+    }
+    else
+    {
+        Console.WriteLine("You have " + tries + " attempt(s) left.");
+    }
+    //the user can type anything into the string
+    Console.WriteLine("Guess the word or letter!");
+    string userInput = Console.ReadLine();
+
+    //first checks whether the userInput is numeric or null
+    if (!IsNumeric(userInput)) 
+    {
+        //check is userInput is only a single letter
+        if (userInput.Length == 1)
+        {
+            //checks if UserInput is in wordGuess
+            if (wordGuess.Contains(userInput))
+            {
+                Console.WriteLine("The letter " + userInput + " is correct!");
+                correctLetters.Add(userInput);
+
+            }
+            else
+            {
+                Console.WriteLine("The letter " + userInput + " isn't correct!");
+                incorrectLetters.Add(userInput);
+                tries--;
+            }
+        }
+        //the userInput is a word
+        else
+        {
+            //checks if userInput is the wordGuess
+            if (wordGuess.Equals(userInput))
+            {
+                Console.WriteLine("You won!");
+                break;
+            }
+            else
+            {
+                Console.WriteLine("The word " + userInput + " isn't correct!");
+                incorrectWords.Add(userInput);
+                tries--;
+            }
+        }
+    }
+    //the userInput was either numeric or null.
+    else
+    {
+        Console.WriteLine("Please enter a valid input.");
+    }
 }
+
