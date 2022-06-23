@@ -67,6 +67,7 @@ while (!gameCompleted)
                 Console.WriteLine("The letter " + userInput + " is correct!");
                 correctLetters.Add(userInput);
 
+
             }
             else
             {
